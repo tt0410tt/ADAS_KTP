@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # 실행 파일 설정
-CMD ["python", "prd/run.py"]
+CMD ["python", "run.py"]
