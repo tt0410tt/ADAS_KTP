@@ -1,4 +1,0 @@
-train: data/train/  # 학습 데이터셋 경로
-val: data/test/     # 테스트 데이터셋 경로
-nc: 2               # 클래스 수 (자동차, 사람)
-names: ['car', 'person']  # 클래스 이름

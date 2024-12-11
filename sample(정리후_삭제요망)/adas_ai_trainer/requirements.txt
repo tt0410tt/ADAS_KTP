@@ -1,4 +1,0 @@
-ultralytics
-numpy
-pandas
-matplotlib
