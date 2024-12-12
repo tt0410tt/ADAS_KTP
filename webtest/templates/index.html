@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Control</title>
+</head>
+<body>
+    <h1>Flask 서버 제어</h1>
+
+    <!-- 동영상 요소 -->
+    <video id="video1" width="320" height="240" controls>
+        <source src="/static/video1.mp4" type="video/mp4">
+        브라우저에서 동영상을 지원하지 않습니다.
+    </video>
+    <video id="video2" width="320" height="240" controls>
+        <source src="/static/video2.mp4" type="video/mp4">
+        브라우저에서 동영상을 지원하지 않습니다.
+    </video>
+
+    <!-- 버튼 -->
+    <br><br>
+    <button onclick="playVideos()">동영상 재생</button>
+    <button onclick="stopVideos()">동영상 멈춤</button>
+    <button onclick="shutdownServer()">코드 종료</button>
+
+    <!-- 스크립트 -->
+    <script>
+        function playVideos() {
+            // 두 동영상 재생
+            document.getElementById("video1").play();
+            document.getElementById("video2").play();
+            alert("동영상 재생 중!");
+        }
+
+        function stopVideos() {
+            // 두 동영상 일시 정지
+            document.getElementById("video1").pause();
+            document.getElementById("video2").pause();
+            alert("동영상 일시 정지!");
+        }
+
+        function shutdownServer() {
+            if (confirm("정말 서버를 종료하시겠습니까?")) {
+                fetch('/shutdown', { method: 'POST' })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data);
+                        window.close(); // 브라우저 탭 닫기 (지원되는 브라우저에서만 작동)
+                    });
+            }
+        }
+    </script>
+</body>
+</html>
