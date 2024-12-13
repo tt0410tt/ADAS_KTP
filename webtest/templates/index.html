@@ -65,7 +65,7 @@
     <!-- 버튼 -->
     <button onclick="playVideos()">동영상 재생</button>
     <button onclick="stopVideos()">동영상 멈춤</button>
-    <button onclick="shutdownServer()">코드 종료</button>
+    <button onclick="pageclose()">페이지닫기</button>
 
     <!-- 스크립트 -->
     <script>
@@ -83,8 +83,8 @@
             alert("동영상 일시 정지!");
         }
 
-        function shutdownServer() {
-            if (confirm("정말 서버를 종료하시겠습니까?")) {
+        function pageclose() {
+            if (confirm("영상 재생을 중지하고, 현재 페이지를 닫으시겠습니까?")) {
                 fetch('/shutdown', { method: 'POST' })
                     .then(response => response.text())
                     .then(data => {
