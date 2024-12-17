@@ -53,11 +53,11 @@
     <!-- 동영상 중앙 정렬 -->
     <div class="video-container">
         <video id="video1" controls>
-            <source src="/static/video1.mp4" type="video/mp4">
+            <source src="/static/video/video1.mp4" type="video/mp4">
             브라우저에서 동영상을 지원하지 않습니다.
         </video>
         <video id="video2" controls>
-            <source src="/static/video2.mp4" type="video/mp4">
+            <source src="/static/video/video2.mp4" type="video/mp4">
             브라우저에서 동영상을 지원하지 않습니다.
         </video>
     </div>
@@ -65,7 +65,6 @@
     <!-- 버튼 -->
     <button onclick="playVideos()">동영상 재생</button>
     <button onclick="stopVideos()">동영상 멈춤</button>
-    <button onclick="pageclose()">페이지닫기</button>
 
     <!-- 스크립트 -->
     <script>
@@ -81,17 +80,6 @@
             document.getElementById("video1").pause();
             document.getElementById("video2").pause();
             alert("동영상 일시 정지!");
-        }
-
-        function pageclose() {
-            if (confirm("영상 재생을 중지하고, 현재 페이지를 닫으시겠습니까?")) {
-                fetch('/shutdown', { method: 'POST' })
-                    .then(response => response.text())
-                    .then(data => {
-                        alert(data);
-                        window.close(); // 브라우저 탭 닫기 (지원되는 브라우저에서만 작동)
-                    });
-            }
         }
     </script>
 </body>
