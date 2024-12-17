@@ -164,3 +164,4 @@ cython_debug/
 # add custom
 !.gitkeep
 adas_web_simulator/static/uploads/*
+video/*
