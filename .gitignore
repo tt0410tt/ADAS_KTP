@@ -165,3 +165,6 @@ cython_debug/
 !.gitkeep
 adas_web_simulator/static/uploads/*
 video/*
+adas_ai_trainer/datasets/lain/test/*
+adas_ai_trainer/datasets/lain/train/*
+adas_ai_trainer/datasets/lain/val/*
