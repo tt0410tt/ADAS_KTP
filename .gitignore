@@ -162,9 +162,8 @@ cython_debug/
 #.idea/
 
 # add custom
-!.gitkeep
 adas_web_simulator/static/uploads/*
 video/*
-adas_ai_trainer/datasets/lain/test/*
-adas_ai_trainer/datasets/lain/train/*
-adas_ai_trainer/datasets/lain/val/*
+adas_ai_trainer/datasets/lain/images/*/*
+adas_ai_trainer/datasets/lain/labels/*/*
+!.gitkeep
