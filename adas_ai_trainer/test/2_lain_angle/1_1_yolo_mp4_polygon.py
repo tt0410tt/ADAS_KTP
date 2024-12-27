@@ -1,26 +1,13 @@
-import os
 from ultralytics import YOLO
 import cv2
 import numpy as np
-import shutil
+import os
 
-# 경로 설정 (한 곳에 모아둠)
-current_dir = os.path.dirname(os.path.abspath(__file__)) # 여기의 절대경로
-parent_dir_1 = os.path.dirname(current_dir) # 부모경로
-parent_dir_2 = os.path.dirname(parent_dir_1) # 부모경로
-parent_dir_3 = os.path.dirname(parent_dir_2) # 부모경로
-parent_dir_4 = os.path.dirname(parent_dir_3) # 부모경로
-model_path = os.path.abspath(os.path.join(parent_dir_3, "model/lain/train_yolo11xseg_SO.pt")) #모델 위치
-video_path = os.path.join(parent_dir_4, "video/1_1mv_1.mp4") #변경 비디오 위치
-
-label_path = os.path.join(parent_dir_4,"runs/segment/predict/labels/image0.txt")
-del_path=os.path.join(parent_dir_4,"runs")
-output_video_path = os.path.join(parent_dir_4, "video/1_1mv_1_pol.mp4")
-
-# YOLO 모델 로드
-model = YOLO(model_path)
+# YOLO 모델 불러오기 (YOLOv8-seg 가중치 파일 필요)
+model = YOLO("/data_KTP/SO/runs/segment/train11/weights/222.pt")
 
 # 비디오 파일 읽기
+video_path = "/data_KTP/SO/분당판교_드라이브_2.mp4"
 cap = cv2.VideoCapture(video_path)
 
 # FPS 및 프레임 크기 가져오기
@@ -28,8 +15,12 @@ fps = cap.get(cv2.CAP_PROP_FPS)
 frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
+# 저장 디렉토리 생성
+output_dir = "output_masks"
+os.makedirs(output_dir, exist_ok=True)
 
 # 비디오 저장 설정
+output_video_path = os.path.join(output_dir, "output_with_overlay2.mp4")
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out = cv2.VideoWriter(output_video_path, fourcc, fps, (frame_width, frame_height))
 
@@ -45,6 +36,7 @@ while True:
     results = model.predict(source=frame, save_txt=True)
 
     # 복호화된 폴리곤 데이터를 읽어서 오버레이
+    label_path = os.path.join("/data_KTP/SO/runs/segment/predict/labels", f"image0.txt")
     if os.path.exists(label_path):
         with open(label_path, "r") as f:
             lines = f.readlines()
@@ -74,12 +66,4 @@ while True:
 
 cap.release()
 out.release()
-
-# del_path 디렉토리 삭제
-if os.path.exists(del_path):
-    shutil.rmtree(del_path)
-    print(f"폴더 {del_path}가 삭제되었습니다.")
-else:
-    print(f"폴더 {del_path}를 찾을 수 없습니다.")
-
 print(f"전체 영상 처리가 완료되었습니다. 결과 비디오는 {output_video_path}에 저장되었습니다.")
